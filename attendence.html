@@ -1,0 +1,23 @@
+const students = {{ students | tojson }};
+const attendanceData = {{ attendance_data | tojson }};
+const totalDays = {{ total_days }};
+
+// Show attendance percentage for the month
+const tableBody = document.getElementById("percentageTableBody");
+
+students.forEach(student => {
+    const studentId = student[0];
+    const studentName = student[1];
+
+    const presentCount = attendanceData[studentId] || 0; // handle students with 0 presents
+    const percentage = totalDays > 0 ? Math.round((presentCount / totalDays) * 100) : 0;
+
+    const tr = document.createElement("tr");
+    tr.style.color = percentage < 75 ? "red" : "black";  // absentees < 75% in red
+    tr.innerHTML = `
+        <td>${studentId}</td>
+        <td>${studentName}</td>
+        <td>${percentage}%</td>
+    `;
+    tableBody.appendChild(tr);
+});
