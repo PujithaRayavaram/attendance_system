@@ -162,7 +162,7 @@ def index():
                 VALUES(?,?,?,?)
             """, (student_id, faculty_id, today, status))
         conn.commit()
-        return redirect("/dashboard")
+        return redirect("/index")
 
     # ===== COUNT =====
     total = len(students)
@@ -208,4 +208,5 @@ def logout():
 
 
 if __name__ == "__main__":
+
     app.run(debug=True)
